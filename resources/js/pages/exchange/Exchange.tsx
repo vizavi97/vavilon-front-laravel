@@ -27,6 +27,7 @@ interface ExchangeRatesInterface {
     rates: number
 }
 
+
 export const Exchange: React.FC<ExchangeInterface> = () => {
     const [crypto] = useState<ExchangeRatesInterface[] | []>(rates)
     const [activeCrypto, setActiveCrypto] = useState<ExchangeRatesInterface>(rates[0])

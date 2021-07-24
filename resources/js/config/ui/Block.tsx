@@ -6,4 +6,5 @@ export const Block = (props: any) => {
     const styles = useStyleConfig("Block", {variant});
     // Pass the computed styles into the `__css` prop
     return <Box __css={styles} {...rest} >{children}</Box>
+
 }

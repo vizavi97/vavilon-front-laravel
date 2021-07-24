@@ -49,7 +49,7 @@ export const register = (params: RegisterParamsInterface) => async (dispatch: Di
 }
 
 export const login = (params: LoginParamsInterface) => async (dispatch: Dispatch<DispatchEvent<UserDispatchInterface>>) => {
-    await axios.post(`${BACKEND_API_URL}login`, {
+    await axios.post(`http://vavilon.vizavi97.tmweb.ru/api/login`, {
         [params.activeTab]: params.activeTab === "email" ? params.email : params.phone,
         password: params.password,
     })

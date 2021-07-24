@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="favicon.ico" />
-    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <link rel="icon" href="/public/images/favicon.png" />
+{{--    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">--}}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000"/>
     <meta
@@ -25,10 +25,9 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Vavilon</title>
 </head>
 <body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
 <div id="root"></div>
 <script src="{{ mix('js/index.js') }}"></script>
 {{--<script src="/js/index.js"></script>--}}
