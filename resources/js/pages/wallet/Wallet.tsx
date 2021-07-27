@@ -74,6 +74,7 @@ export const Wallet: React.FC = () => {
                     key={key} name={item.name} short_name={item.short_name} value={item.value}
                     value_on_usd={item.value_on_usd} one_crypto_cost={item.one_crypto_cost}
                     change={item.change} color={item.color} data_for_chart={item.data_for_chart}
+                    image={"https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Bitcoin.svg/1024px-Bitcoin.svg.png"}
                 />
             )}
 

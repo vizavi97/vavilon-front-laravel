@@ -28,6 +28,7 @@ export const WalletItem: React.FC<WalletItemInterface> = ({
                                                               change,
                                                               color,
                                                               data_for_chart,
+    image
                                                           }) => {
 
         const {colorMode} = useColorMode()

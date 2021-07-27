@@ -5,6 +5,7 @@ import {Box, Button, Flex, Input, Text, useColorMode, useToast} from "@chakra-ui
 import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 import {settingsValidator} from "../../tools/private/settings.validator";
 import {changeUserInfo, login} from "../../store/actions/user.action";
+import {useMetaMask} from "metamask-react";
 
 
 export interface SettingsStateInterface {
@@ -55,6 +56,7 @@ export const Settings: React.FC = () => {
             setDisable(() => false)
         }
     }
+    const { status, connect, account } = useMetaMask();
 
     return (
         <>
@@ -87,6 +89,22 @@ export const Settings: React.FC = () => {
                             onChange={inputHandler}
                         />
                     </Flex>
+                    {account &&  <Flex alignItems='center' mb={5}>
+                        <Box maxWidth={'140px'} w={'100%'}>
+                            <Text fontSize={"0.875rem"} color={"#A2ABCA"}>
+                                Wallet id
+                            </Text>
+                        </Box>
+                        <Input
+                            h={'46px'}
+                            _focus={{w: "100%"}}
+                            bg={colorMode === 'light' ? "#ECF0FA" : "#1F232D"}
+                            outline={'none'}
+                            placeholder="Wallet id"
+                            value={account.toString()}
+                            isDisabled={true}
+                        />
+                    </Flex>}
                 </Box>
                 <Box pt='1.5rem'>
                     <Text as='h3' fontSize={"1.125rem"} fontWeight={700} mb={4}>

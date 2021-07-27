@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="/public/images/favicon.png" />
+    <link rel="icon" href="http://vavilon.vizavi97.tmweb.ru/themes/vavilon-front/assets/favicon/favicon.png" />
 {{--    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">--}}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000"/>
