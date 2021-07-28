@@ -23,7 +23,6 @@ function App() {
     const toast = useToast()
     const {user, loader, message, error,renderCounter} = useSelector((state: RootStateOrAny) => state.user);
     const dispatch = useDispatch();
-
     useEffect(() => {dispatch(meQuery())}, [dispatch])
     useEffect(() => {
         if (message) {
@@ -38,9 +37,7 @@ function App() {
         }
     }, [renderCounter, toast,error,message]);
 
-    if (loader) {
-        return (<PreLoader/>)
-    }
+    if (loader) {return (<PreLoader/>)}
 
     if (user) {
         return (

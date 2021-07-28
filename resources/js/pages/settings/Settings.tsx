@@ -4,8 +4,10 @@ import {Block} from "../../config/ui/Block";
 import {Box, Button, Flex, Input, Text, useColorMode, useToast} from "@chakra-ui/react";
 import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 import {settingsValidator} from "../../tools/private/settings.validator";
-import {changeUserInfo, login} from "../../store/actions/user.action";
+import {changeUserInfo} from "../../store/actions/user.action";
 import {useMetaMask} from "metamask-react";
+// const Web3 = require('web3');
+
 
 
 export interface SettingsStateInterface {
@@ -19,6 +21,7 @@ export interface SettingsStateInterface {
 
 
 export const Settings: React.FC = () => {
+    const [acc, setAcc] = useState('')
     const toast = useToast()
     const {colorMode} = useColorMode();
     const {user} = useSelector((state: RootStateOrAny) => state.user)
@@ -57,7 +60,6 @@ export const Settings: React.FC = () => {
         }
     }
     const { status, connect, account } = useMetaMask();
-
     return (
         <>
             <UserProfile name={form.name} phone={form.phone} email={form.email}/>
