@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, Switch, Redirect} from 'react-router-dom'
 import {Main} from "./pages/main/Main";
 import {CabinetLayout} from "./components/layout/cabinet/CabinetLayout";
 import {Invest} from "./pages/invest/Invest";
@@ -45,13 +45,14 @@ function App() {
                 <Switch>
                     <CabinetLayout>
                         <Route exact path='/' component={Main}/>
-                        <Route exact path='/invest' component={Invest}/>
-                        <Route exact path='/contacts' component={Contacts}/>
-                        <Route exact path='/wallet' component={Wallet}/>
-                        <Route exact path='/mining' component={Mining}/>
-                        <Route exact path='/exchange' component={Exchange}/>
-                        <Route exact path='/stacking' component={Stacking}/>
-                        <Route exact path='/settings' component={Settings}/>
+                        <Route path='/invest' component={Invest}/>
+                        <Route path='/contacts' component={Contacts}/>
+                        <Route path='/wallet' component={Wallet}/>
+                        <Route path='/mining' component={Mining}/>
+                        <Route path='/exchange' component={Exchange}/>
+                        <Route path='/stacking' component={Stacking}/>
+                        <Route path='/settings' component={Settings}/>
+                        <Redirect from='*' to='/' />
                     </CabinetLayout>
                 </Switch>
             </BrowserRouter>

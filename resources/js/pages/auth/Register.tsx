@@ -14,13 +14,18 @@ import {
     useToast,
     Spinner,
 } from '@chakra-ui/react';
+import {useLocation} from 'react-router-dom'
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
-import React, {ChangeEvent, FormEvent, useState} from 'react'
+import React, {ChangeEvent, FormEvent, useEffect, useState} from 'react'
 import {Link as RouterLink} from 'react-router-dom'
 import {validateRegister} from "../../tools/auth/register.validate";
 import {useDispatch} from "react-redux";
 import {register} from "../../store/actions/user.action";
+import {getRefFromUrl} from "../../tools/auth/get.ref";
+import axios from "axios";
+import {BACKEND_API_URL} from "../../config/app.config";
+import {RefUserInterface} from "../../store/interfaces/user";
 
 
 export interface RegisterFormInterface {
@@ -29,12 +34,13 @@ export interface RegisterFormInterface {
     name: string,
     password: string,
     password_confirmation: string,
-    privacy: boolean
+    privacy: boolean,
+    ref: string | number | null
 }
 
 export const Register: React.FC = () => {
     const toast = useToast()
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState('email')
     const [form, setForm] = useState<RegisterFormInterface>({
         email: '',
@@ -43,15 +49,17 @@ export const Register: React.FC = () => {
         password: '',
         password_confirmation: '',
         privacy: false,
-    });
-    const [disable, setDisable] = useState<boolean>(false);
+        ref: getRefFromUrl(useLocation().search)
+    })
+    const [ref, setRef] = useState<null | RefUserInterface>(null)
+    const [disable, setDisable] = useState<boolean>(false)
     const inputHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target
         setForm(state => ({
             ...state,
             [name]: value
         }))
-    };
+    }
     const submitHandler = async (event: FormEvent) => {
         event.preventDefault();
         const error = validateRegister(form, activeTab);
@@ -71,18 +79,31 @@ export const Register: React.FC = () => {
                 email: form.email,
                 name: form.name,
                 password: form.password,
-                password_confirmation: form.password_confirmation
+                password_confirmation: form.password_confirmation,
+                ref: form.ref
             }))
             setDisable(() => false)
         }
-    };
+    }
 
+
+    useEffect(() => {
+        axios.get(`${BACKEND_API_URL}register-ref`,{params: {
+            ref: form.ref
+            }})
+            .then(resp => setRef(() => ({
+                name: resp.data.name,
+                surname: resp.data.surname
+            })))
+            .catch(error => console.log("error", error))
+    }, [form.ref])
     return (
         <Box>
             <Text
                 fontSize='1.5rem'
-            >Создать бесплатный аккаунт</Text>
+            >Создать аккаунт</Text>
             <Text color='#A2ABCA' pb='1.5rem'>Добро пожаловать в Vavilon</Text>
+            {ref && <Text>{"Ваш реферал: " + ref.name + " " + ref.surname}</Text>}
             <Tabs my={2}>
                 <TabList>
                     <Tab flex={1} fontSize={'1.125rem'}

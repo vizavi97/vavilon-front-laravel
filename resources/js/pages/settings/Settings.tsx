@@ -6,8 +6,9 @@ import {RootStateOrAny, useDispatch, useSelector} from "react-redux";
 import {settingsValidator} from "../../tools/private/settings.validator";
 import {changeUserInfo} from "../../store/actions/user.action";
 import {useMetaMask} from "metamask-react";
-// const Web3 = require('web3');
+import {BACKEND_URL} from "../../config/app.config";
 
+// const Web3 = require('web3');
 
 
 export interface SettingsStateInterface {
@@ -21,11 +22,11 @@ export interface SettingsStateInterface {
 
 
 export const Settings: React.FC = () => {
-    const [acc, setAcc] = useState('')
     const toast = useToast()
     const {colorMode} = useColorMode();
     const {user} = useSelector((state: RootStateOrAny) => state.user)
     const dispatch = useDispatch();
+    const {account} = useMetaMask();
     const [disable, setDisable] = useState<boolean>(false)
     const [form, setForm] = useState<SettingsStateInterface>({
         name: user.name,
@@ -59,7 +60,6 @@ export const Settings: React.FC = () => {
             setDisable(() => false)
         }
     }
-    const { status, connect, account } = useMetaMask();
     return (
         <>
             <UserProfile name={form.name} phone={form.phone} email={form.email}/>
@@ -91,7 +91,7 @@ export const Settings: React.FC = () => {
                             onChange={inputHandler}
                         />
                     </Flex>
-                    {account &&  <Flex alignItems='center' mb={5}>
+                    {account && <Flex alignItems='center' mb={5}>
                         <Box maxWidth={'140px'} w={'100%'}>
                             <Text fontSize={"0.875rem"} color={"#A2ABCA"}>
                                 Wallet id
@@ -107,6 +107,22 @@ export const Settings: React.FC = () => {
                             isDisabled={true}
                         />
                     </Flex>}
+                    <Flex alignItems='center' mb={5}>
+                        <Box maxWidth={'140px'} w={'100%'}>
+                            <Text fontSize={"0.875rem"} color={"#A2ABCA"}>
+                                Ваша реферальная ссылка
+                            </Text>
+                        </Box>
+                        <Input
+                            h={'46px'}
+                            _focus={{w: "100%"}}
+                            bg={colorMode === 'light' ? "#ECF0FA" : "#1F232D"}
+                            outline={'none'}
+                            placeholder="Wallet id"
+                            value={(window.location.origin as unknown as string) + "/register?ref="+user.id}
+                            isDisabled={true}
+                        />
+                    </Flex>
                 </Box>
                 <Box pt='1.5rem'>
                     <Text as='h3' fontSize={"1.125rem"} fontWeight={700} mb={4}>

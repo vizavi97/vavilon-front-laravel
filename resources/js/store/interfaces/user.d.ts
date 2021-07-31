@@ -49,6 +49,7 @@ export interface RegisterParamsInterface {
     password: string
     password_confirmation: string
     name: string
+    ref: string | number | null
 }
 
 
@@ -59,6 +60,11 @@ export interface LoginParamsInterface {
     password: string
 }
 
+
+export interface RefUserInterface {
+    name: string
+    surname: string
+}
 
 
 export interface ChangeUserInfoInterface extends UserInterface {}

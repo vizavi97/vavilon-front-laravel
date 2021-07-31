@@ -19,6 +19,7 @@ export const register = (params: RegisterParamsInterface) => async (dispatch: Di
         [params.activeTab]: params.activeTab === "email" ? params.email : params.phone,
         password: params.password,
         password_confirmation: params.password_confirmation,
+        ref: params.ref
     })
         .then((resp) => {
             localStorage.setItem('token', resp.data.token)
