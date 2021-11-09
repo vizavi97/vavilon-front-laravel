@@ -1,15 +1,28 @@
 import {Avatar, Box, Divider, Flex, Grid, GridItem, Link, Text} from '@chakra-ui/react';
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {Block} from '../../config/ui/Block';
+import axios from "axios";
+import {BACKEND_API_URL} from "../../config/app.config";
 
 interface ContactsInterface {
 }
 
 export const Contacts: React.FC<ContactsInterface> = () => {
-    const arr = new Array(9).fill('');
+    const [arr, setArr] = useState([])
+
+    useEffect(() => {
+        axios.get(`${BACKEND_API_URL}contacts`,{
+            headers: {
+                "Authorization": `${localStorage.getItem('token')}`
+            }
+        })
+            .then(resp => setArr(() => resp.data))
+            .catch(error => console.log("contacts- error", error))
+    },[])
+
     return (
         <Flex flexDirection={"column"}>
-            {arr.map((_, number: number) =>
+            {arr.map((item:any, number: number) =>
                 <Flex key={number} mb={2}>
                     <Block w={'100%'} borderRadius='6px' p={5}>
                         <Grid
@@ -24,12 +37,12 @@ export const Contacts: React.FC<ContactsInterface> = () => {
                                 <Flex alignItems='center'>
                                     <Box>
                                         <Avatar size={'lg'}
-                                                name="Timur Fayziev"
+                                                name={item.name}
                                                 src="https://bit.ly/sage-adebayo"
                                         />
                                     </Box>
                                     <Flex flexDirection={'column'} pl={'1.5rem'}>
-                                        <Text fontWeight={600}>David McHenry</Text>
+                                        <Text fontWeight={600}>{item.name + " " + item.id}</Text>
                                         <Text color={'#BEC4DF'} fontSize={'0.875rem'}>Frontend Developer</Text>
                                     </Flex>
                                 </Flex>

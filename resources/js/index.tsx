@@ -19,7 +19,7 @@ import {MetaMaskProvider} from 'metamask-react'
 
 const store = createStore(rootReducer, compose(
     applyMiddleware(thunk),
-    composeWithDevTools()
+    //composeWithDevTools()
 ));
 
 
